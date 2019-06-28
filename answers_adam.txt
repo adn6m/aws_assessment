@@ -30,7 +30,8 @@ wc -l mysqlsampledatabase.sql
 2.	Create a new file from the file mysqlsampledatabase.sql where every word “mysql” is replaced with “yoursql” 
 sed 's/mysql/yoursql/g' yessir > theanswer
 3.	( bonus ) Count how many times word NULL appeared on mysqlsampledatabase.sql file.
-436 timessl
+436 times
+code:grep -wc "NULL" yessir
 Task 5:
 1.	Create an RDS MariaDB instance on AWS Ohio region.
 2.	Import the mysql dump file s into the RDS database
