@@ -1,0 +1,46 @@
+Short Answer
+1.	Highlight few differences between Block storage ( EBS ) & Object storage (s3)
+EBM: paradigm = block storage with file system, performance = fast, redundancy = across multiple servers in an availability zone, security = EBS Encryption-Data volumes and Snapshots, Access from the internet = No, typical use case: it is a disk drive.  S3: object store, fast, across multiple facilities in a Region, Encryption, yes, online storage.
+2.	Highlight few differences between NoSQL & SQL databases
+SQL: type = relational, data = structured data stored in tables, schema = vertical, language = structured query language, joins = helpful to design complex queries, OLTP = recommended and best suited for OLTP systems, support = great support, integrated caching = supports in-line memory(SQL2014 and SQL 2016), flexible = rigid schema bound to relationship, transaction = ACID, auto elasticity = requires downtime in most cases. NoSQL: non-relational, un-structured stored in JSON files but the graphic database does support relationship, dynamic, horizontal, un-structured query language, no joins/don’t how the powerful interface to prepare complex query, less likely to be consider for OLTP system, community dependent/expanding support model, supports integrated caching, non-rigid schema and flexible, CAP theorem, automatic/no outage required.
+3.	Highlight few differences between ssh & http protocol
+SSL/http: abbreviation = Secure Socket Layer, Port = 443, Application = for encrypting communication between browser and server, adopted by industry = widely used by e-commerce, banking, social media, government, healthcare, etc. industries, authentication = via public-key/private-key pair.  SSH: secure shell, 22, for encrypting communication between two computers, widely adopted by networking industry, via public-key/private-key pair or user-id/password pair.
+Tasks 1
+1.	Create a new ec2 instance & new key ( AWS Ohio region )
+Task 2
+1.	Create a S3 bucket with <yourname>_final ( Ohio region )
+2.	Create 2 IAM users, one with readonly s3 access, another with s3fullaccess
+Task 3:
+1.	Upload the file https://github.com/becloudready/rds-tutorials/blob/master/mysql/mysqlsampledatabase.sql into your s3 bucket
+2.	Download the aforesaid uploaded ( mysqlsampledatabase.sql ) into your ec2 instance ( cmdline )
+3.	Write the command that you used for step #2
+curl -X PUT \
+  https://adam-final.s3.us-east-2.amazonaws.com/mysqlsampledatabase.sql \
+  -H 'Authorization: AWS4-HMAC-SHA256 Credential=AKIASDBDPENSGLNJWLZ6/20190628/us-east-2/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=0cba9080a3915d5889cf4ab478146af9e5205b9588d7edc848187da041a8b108' \
+  -H 'Host: adam-fianl.s3.us-east-2.amazonaws.com' \
+  -H 'Postman-Token: 34e3b164-8b39-4b5c-8231-04fddf5ba096' \
+  -H 'X-Amz-Content-Sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' \
+  -H 'X-Amz-Date: 20190628T174333Z' \
+  -H 'cache-control: no-cache' > yessir
+
+Task 4:
+1.	On ec2 instance Count number of lines of the mysqldump file ( downloaded from s3)
+wc -l mysqlsampledatabase.sql 
+4065 yessir # there are 4065 lines
+2.	Create a new file from the file mysqlsampledatabase.sql where every word “mysql” is replaced with “yoursql” 
+sed 's/mysql/yoursql/g' yessir > theanswer
+3.	( bonus ) Count how many times word NULL appeared on mysqlsampledatabase.sql file.
+436 timessl
+Task 5:
+1.	Create an RDS MariaDB instance on AWS Ohio region.
+2.	Import the mysql dump file s into the RDS database
+
+Task 6:
+1.	Write an SQL query on the database created on step 5 : Select all customer names, and product names from the database in single query.
+Select a.customerName, d.productName
+From customers a join orders b on a.customerNumber = b.customerNumber
+join orderdetails c on b.orderNumber = c.orderNumber
+Join products d on c.productCode = d.productCode;
+From customers join products on 
+Task 7:
+1.	Push your each answer as separate git commit into a new repository called aws_assessment. ( Don’t put any AWS keys, secret, passwords into the commit, of delete the keys before you push them )
