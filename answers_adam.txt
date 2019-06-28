@@ -45,3 +45,5 @@ Join products d on c.productCode = d.productCode;
 From customers join products on 
 Task 7:
 1.	Push your each answer as separate git commit into a new repository called aws_assessment. ( Don’t put any AWS keys, secret, passwords into the commit, of delete the keys before you push them )
+
+just showing that I can upload from command :-)
